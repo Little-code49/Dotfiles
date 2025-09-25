@@ -1,0 +1,14 @@
+#!/bin/bash
+
+playerctl status >/dev/null 2>&1
+  val=$?
+  if [[ $val == 0 ]]; then
+    status=$(playerctl status)
+    if [[ $status == "Playing" ]]; then
+      echo "󰏤"
+    else
+      echo "󰐊"
+    fi
+  elif [[ $val == 1 ]]; then
+    echo "󰐊"
+  fi

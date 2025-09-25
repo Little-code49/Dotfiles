@@ -1,0 +1,292 @@
+(defpoll IMAGE_COVER :interval "1s" `bash ~/.config/eww/scripts/music.sh image`)
+(defpoll AUDIO_PROGRESS :interval "0.5s" `echo $(awk 'BEGIN { pos='$(playerctl position)'; len='$(playerctl metadata mpris:length)'/1000000; printf "%.2f", (pos/len)*100 }')`)
+(defpoll AUDIO_TITLE :interval "3s" `bash ~/.config/eww/scripts/music.sh title`)
+(defpoll AUDIO_ARTIST :interval "3s" `playerctl metadata artist`)
+(defpoll AUDIO_TIME :interval "1s" `bash $HOME/.config/eww/scripts/music.sh time`)
+(defpoll AUDIO_STATUS :interval "1s" `bash ./music_status`)
+(defpoll TIME :interval "1s" `date +' %H:%M:%S'`)
+(defpoll DATE :interval "5s" `date +" %d %B, %Y"`)
+
+(defpoll USER :interval "600s" `whoami`)
+(defpoll SPEAKER :interval "5s" `amixer -D pipewire sget Master | grep '%' | grep 'Left' | awk '{ print $5 }' | sed 's/[][]//g' | sed 's/%//g' | tr -d '\n'
+`)
+(defpoll BRIGHTNESS :interval "5s" `brightnessctl | grep "Current brightness" | awk -F '[()%]' '{printf "%s", $2}'`)
+(defpoll WEEK :interval "5s" `date +"%A"`)
+(defpoll WEATHER_DEGREE :interval "300s" `bash $HOME/.config/scripts/weather_info --temp`)
+(defpoll WEATHER_COLOR :interval "300s" `bash $HOME/.config/scripts/weather_info --hex`)
+(defpoll WEATHER_ICON :interval "300s" `bash $HOME/.config/scripts/weather_info --icon`)
+(defpoll WEATHER_STAT :interval "300s" `bash $HOME/.config/scripts/weather_info --stat`)
+(defpoll WEATHER_QUOTE :interval "300s" `bash $HOME/.config/scripts/weather_info --quote`)
+(defpoll WEATHER_QUOTE2 :interval "300s" `bash $HOME/.config/scripts/weather_info --quote2`)
+(defpoll SYS_CPU :interval "1s" `bash $HOME/.config/eww/scripts/sys_info --cpu`)
+(defpoll SYS_RAM :interval "1s" `bash $HOME/.config/eww/scripts/sys_info --mem`)
+(defpoll SYS_DISK :interval "1s" `bash $HOME/.config/eww/scripts/sys_info --mem`)
+
+(defvar IMAGE "../pfp.png")
+
+(defwindow audio_art
+  :monitor 0
+  :geometry (geometry :height "80px"
+                      :width "80px"
+                      :x "340px"
+                      :y "160px")
+(audio_art))
+
+
+(defwidget audio_art []
+    (box :style 'background-image: url("${IMAGE_COVER}")' :class "image")
+)
+(defwindow audio_title
+  :monitor 0
+  :geometry (geometry :height "20px"
+                      :width "230px"
+                      :y "135px"
+                      :x "215px")
+(audio_title))
+
+(defwidget audio_title []
+  (box :orientation "v"
+  (label :limit-width 5 :text AUDIO_TITLE :class "audio_title" :halign "start" :wrap false :limit-width 1000)
+  )
+)
+
+(defwindow audio_artist
+  :monitor 0
+  :geometry (geometry :height "20px"
+                      :width "100px"
+                      :y "155px"
+                      :x "215px")
+(audio_artist))
+
+(defwidget audio_artist []
+  (label :text AUDIO_ARTIST :class "audio_artist" :halign "start" :wrap true)
+)
+
+(defwindow audio_progress
+  :monitor 0
+  :geometry (geometry :height "10px"
+                      :width "150px"
+                      :y "272px"
+                      :x "215px")
+(audio_progress))
+
+
+(defwidget audio_progress []
+    (scale :class "song_prog" :halign "start" :hexpand false :value AUDIO_PROGRESS :min 0 :max 100 :onchange `playerctl position "$(awk -v len=$(playerctl metadata mpris:length) -v p={} 'BEGIN { print (len/1000000)*(p/100) }')"`)
+
+)
+
+(defwindow audio_time
+  :monitor 0
+  :geometry (geometry :height "10px"
+                      :width "50px"
+                      :y "268px"
+                      :x "355px")
+(audio_time))
+
+(defwidget audio_time []
+  (label :text AUDIO_TIME :halign "center" :class "song_time" :hexpand false)
+)
+
+(defwindow audio_controls 
+  :monitor 0
+  :geometry (geometry :height "18px"
+                      :width "80px"
+                      :x "220px"
+                      :y "232px")
+(audio_controls))
+
+(defwidget audio_controls []
+  (box :class "msccontr" :orientation "h" :class "control_bg" :spacing 15
+    (button :onclick "playerctl previous" :class "controls" (label :text "󰒮" :class "control_label"))
+    (button :onclick "playerctl play-pause" :class "controls" (label :text AUDIO_STATUS :class "control_label"))
+    (button :onclick "playerctl next" :class "controls" (label :text "󰒭" :class "control_label"))
+  )
+)
+
+
+(defwindow audio_bg
+  :monitor 0
+  :geometry (geometry :height "165px"
+                      :width "240px"
+                      :y "130px"
+                      :x "205px")
+(audio_bg))
+
+(defwidget audio_bg []
+  (box :class "audio_bg")
+)
+
+(defwindow bg 
+  :monitor 0
+  :geometry (geometry :height "670px"
+                      :width "435px"
+                      :x "15px"
+                      :y "15px")
+  :stacking "fg"
+  :wm-ignore true
+(bg))
+
+(defwindow powermenu 
+  :monitor 0
+  :geometry (geometry :height "30px"
+                      :width "425px"
+                      :x "20px"
+                      :y "612px")
+  :stacking "fg"
+  :wm-ignore true
+(powermenu))
+
+(defwidget powermenu []
+  (box :orientation "h" :spacing 0 :class "powermenu"
+    (button :onclick "shutdown now" :class "powermenu_btn"
+      (label :text "" :class "shutdown")
+    )
+    (button :onclick "systemctl reboot" :class "powermenu_btn"
+      (label :text "" :class "reboot")
+    )
+
+    (button :onclick "systemctl suspend" :class "powermenu_btn"
+      (label :text "" :class "suspend")
+    )
+
+    (button :onclick "bash ~/.config/eww/scripts/lock.sh" :class "powermenu_btn"
+      (label :text "" :class "lock")
+    )
+
+    (button :onclick "killall -9 Hyprland" :class "powermenu_btn"
+      (label :text "󰗽" :class "logout")
+    )
+
+  )
+)
+
+(defwindow clock 
+  :monitor 0
+  :geometry (geometry :height "40px"
+                      :width "0px"
+                      :x "205px"
+                      :y "20px")
+(time))
+
+(defwidget time []
+  (box :orientation "v" :class "clock" :halign "center"
+    (label :class "time" :text TIME :halign "center")
+    (label :class "date" :text DATE :halign "center")
+  )
+)
+
+
+
+(defwidget bg []
+  (box :class "bg")
+)
+
+(defwindow pfp
+  :monitor 0
+  :geometry (geometry :height "190px"
+                      :width "180px"
+                      :y "80px"
+                      :x "20px")
+(pfp))
+
+(defwidget pfp []
+  (box :class "pfp" :orientation "v"
+    (box :class "pfp_img" :style 'background-image: url("${IMAGE}");')
+  )
+)
+
+(defwindow user 
+  :monitor 0
+  :geometry (geometry :height "20px"
+                      :width "180px"
+                      :y "270px"
+                      :x "20px")
+(user))
+
+(defwidget user []
+  (label :text USER :class "user")
+)
+
+(defwindow stats
+  :monitor 0
+  :geometry (geometry :height "307px"
+                      :width "72px"
+                      :x "373px"
+                      :y "300px")
+(stats))
+
+(defwidget stats []
+  (box :class "stats"
+  (box :orientation "v" :spacing 10 :space-evenly "false" :vexpand "false" :hexpand "false" :class "spk_bg"
+    (scale :orientation "v" :flipped true :min 0 :max 101 :value SPEAKER :onchange "amixer -D pipewire sset Master {}%" :class "speaker")
+      (label :class "speaker_lb" :text "󰕾":vexpand false)
+    )
+  (box :orientation "v" :spacing 10 :space-evenly "false" :vexpand "false" :hexpand "false" :class "br_bg"
+    (scale :orientation "v" :flipped true :min 0 :max 101 :value BRIGHTNESS :onchange "brightnessctl s {}%" :class "brightness")
+      (label :class "brightness_lb" :text "":vexpand false)
+    )
+  )
+)
+
+(defwindow week 
+  :monitor 0
+  :geometry (geometry :width "180px"
+                      :height "55px"
+                      :x "20px"
+                      :y "20px")
+(week))
+
+(defwidget week []
+  (label :text WEEK :class "week")
+)
+
+(defwindow weather
+  :monitor 0
+  :geometry (geometry :width "348px"
+                      :height "70px"
+                      :y "300px"
+                      :x "20px")
+(weather))
+
+(defwidget weather []
+  (box :class "weather_bg" :orientation "v" :vexpand false
+    (box :orientation "h" :class "weather_temp_bg"
+      (label :text WEATHER_ICON :class "icon" :halign "start" :valign "start" :style "color: ${WEATHER_COLOR};")
+      (label :text WEATHER_DEGREE :class "temp" :halign "end" :valign "start")
+    )
+    (box :orientation "v" :class "weather_quotes_bg"
+    (label :text WEATHER_STAT :class "weather_stat")
+    (label :text WEATHER_QUOTE :class "weather_quote")
+    (label :text WEATHER_QUOTE2 :class "weather_quote2")
+    )
+  )
+)
+(defwindow sys
+  :monitor 0
+  :geometry (geometry :width "348px"
+                      :height "140px"
+                      :y "467px"
+                      :x "20px")
+(sys))
+
+(defwidget sys []
+  (box :hexpand false :vexpand false :orientation "h" :class "sys"
+  (box :class "circle"
+    (circular-progress :start-at 75 :thickness 10 :value SYS_CPU :class "cpu"
+      (label :text "   " :class "cpu_icon")
+    )
+  )
+  (box :class "circle"
+    (circular-progress :start-at 75 :thickness 10 :value SYS_RAM :class "ram"
+      (label :text "   " :class "ram_icon")
+    )
+  )
+  (box :class "circle"
+    (circular-progress :start-at 75 :thickness 10 :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)} :class "disk"
+      (label :text "   " :class "disk_icon")
+    )
+  )
+))
+
+

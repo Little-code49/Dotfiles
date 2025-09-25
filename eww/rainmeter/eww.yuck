@@ -1,0 +1,30 @@
+(defpoll TIME :interval "1s" `date +"%-I:%M %p"`)
+(defpoll WEEK :interval "60s" `date +"%A"`)
+
+(defwindow rainmeter_clock
+  :monitor 0
+  :geometry (geometry :x "5%"
+                      :y "70%"
+                      :width "500px"
+                      :height "50px")
+  :stacking "bottom"
+  :windowtype "dock"
+(rainmeter_clock))
+
+(defwidget rainmeter_clock []
+(box :orientation "v" :vanchor "start"
+  (label :text WEEK :class "rainmeter_week")
+  (label :text TIME :class "rainmeter_time")
+)
+)
+
+(defwindow rainmeter_clock_dark
+  :monitor 0
+  :geometry (geometry :x "5%"
+                      :y "70%"
+                      :width "500px"
+                      :height "50px")
+  :stacking "bottom"
+  :windowtype "dock"
+(rainmeter_clock_dark))
+
