@@ -1,0 +1,324 @@
+{
+  "layer": "top",
+  "height": 20,
+  "margin-top": 10,
+  "margin-left": 10,
+  "margin-bottom": 0,
+  "margin-right": 10,
+  "spacing": 0,
+  "modules-left": [
+    "custom/launcher",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "cpu",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "memory",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "temperature",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "group/playerctl",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "disk",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "custom/uptime",
+    "custom/fillerright"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    //Uncomment if u have a battery
+    //"custom/fillerleft",
+    //"battery",
+    /*"custom/fillerright",*/ "custom/fillerleft",
+    "group/pkg",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "custom/weather",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "backlight",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "pulseaudio",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "network",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "custom/date",
+    "custom/fillerright",
+    "custom/fillerleft",
+    "custom/clock"
+  ],
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "active-only": false,
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "persistent-workspaces": {
+      "*": 15
+    },
+    "format-icons": {
+      "1": "🭅",
+      "2": "1",
+      "3": "🭡",
+      "4": "🭅",
+      "5": "2",
+      "6": "🭡",
+      "7": "🭅",
+      "8": "3",
+      "9": "🭡",
+      "10": "🭅",
+      "11": "4",
+      "12": "🭡",
+      "13": "🭅",
+      "14": "5",
+      "15": "🭡"
+    }
+  },
+  "custom/playerctl": {
+    "interval": 1,
+    "format": "<span>{}</span>",
+    "return-type": "json",
+    "max-length": 25,
+    "exec": "bash ~/.config/waybar/scripts/music.sh --title",
+    "tooltip-format": "12345"
+  },
+  "custom/uptime": {
+    "format": " {}",
+    "interval": 30,
+    "exec": "bash ~/.config/waybar/scripts/uptime.sh",
+    "on-click": "",
+  },
+  "custom/play": {
+    "interval": 1,
+    "format": " <span>{icon}</span>",
+    "return-type": "json",
+    "exec": "bash ~/.config/waybar/scripts/music.sh --status",
+    "on-click": "playerctl play-pause",
+    "format-icons": {
+      "Playing": " ",
+      "Paused": " "
+    }
+  },
+  "custom/next": {
+    "format": "󰒭",
+    "return-type": "json",
+    "on-click": "playerctl next"
+  },
+  "custom/previous": {
+    "format": " 󰒮",
+    "return-type": "json",
+    "on-click": "playerctl previous"
+  },
+  "group/playerctl": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/playerctl",
+      "custom/previous",
+      "custom/play",
+      "custom/next"
+    ]
+  },
+  "custom/clock": {
+    "exec": "date +'%-I:%M %p'",
+    "interval": 1,
+    "format": "{} "
+  },
+  "custom/date": {
+    "exec": "date +'󰸗 %d-%m'",
+    "interval": 5,
+    "format": "{}"
+  },
+  "cpu": {
+    "interval": 10,
+    "format": " {usage}%",
+    "max-length": 10,
+    "on-click": "htop"
+  },
+  "memory": {
+    "interval": 30,
+    "format": " {}%",
+    "format-alt": " {used:0.1f}G",
+    "max-length": 10,
+    "on-click-right": "htop"
+  },
+  "backlight": {
+    "device": "amdgpu_bl1",
+    "format": "{icon} {percent}",
+    "tooltip": false,
+    "on-click": "exec ~/.config/eww/launch_brightness.sh",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "custom/weather": {
+    "interval": 30,
+    "exec": "echo \"$(exec ~/.config/scripts/weather_info --small)\" ",
+    "format": "{}"
+  },
+  "group/backlight": {
+    "orientation": "horizontal",
+    "modules": [
+      "backlight"
+    ],
+    "in-height": 20
+  },
+  "network": {
+    "interval": 1,
+    "format-wifi": "󰒢 {essid}",
+    "format-alt": "{bandwidthUpBytes} ⌃ {bandwidthDownBytes} ⌄",
+    "format-ethernet": " wired",
+    "tooltip-format": "{essid} {signalStrength}%",
+    "format-disconnected": ""
+  },
+  "pulseaudio": {
+    "format": "{icon} <b>{volume}</b>",
+    "format-bluetooth": " {volume}",
+    "on-click": "pavucontrol",
+    "tooltip": false,
+    "format-muted": "",
+    "format-icons": {
+      "default": [
+        "󰝟",
+        "",
+        "󰕾"
+      ]
+    },
+    "on-click-right": "pavucontrol"
+  },
+  "group/pulseaudio": {
+    "orientation": "horizontal",
+    "modules": [
+      "pulseaudio"
+    ]
+  },
+  "battery": {
+    "bat": "BAT0",
+    "interval": 10,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": [
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
+    "tooltip": false
+  },
+  "group/battery": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/fillerright",
+      "battery",
+      "custom/fillerleft"
+    ]
+  },
+  "custom/right-arr": {
+    "format": "  "
+  },
+  "custom/launcher": {
+    "format": " 󰣇",
+    "on-click": "bash $HOME/.config/eww/launch.sh",
+    "tooltip-format": "Powermenu"
+  },
+  "custom/shutdown": {
+    "format": "  ",
+    "on-click": "systemctl poweroff"
+  },
+  "custom/reboot": {
+    "format": " ",
+    "on-click": "systemctl reboot"
+  },
+  "custom/sleep": {
+    "format": " ",
+    "on-click": "mpc -q pause ;systemctl suspend"
+  },
+  "custom/logout": {
+    "format": "󰍃 ",
+    "on-click": "killall -9 Hyprland"
+  },
+  "custom/lock": {
+    "format": " ",
+    "on-click": "hyprlock"
+  },
+  "group/power": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/launcher",
+      "custom/shutdown",
+      "custom/reboot",
+      "custom/lock",
+      "custom/sleep",
+      "custom/logout"
+    ]
+  },
+  "custom/fillerleft": {
+    "format": "🭅"
+  },
+  "custom/fillerright": {
+    "format": "🭡"
+  },
+  // Quicklinks
+  "custom/pkgicon": {
+    "format": "󰏗 ",
+    "on-click": "kitty -e sudo pacman -Syu"
+  },
+  "custom/package": {
+    "interval": 30,
+    "exec": "~/.config/waybar/scripts/checkupdates | wc -l",
+    "on-click": "kitty -e sudo pacman -Syu",
+    "format": "{}"
+  },
+  "group/pkg": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/pkgicon",
+      "custom/package"
+    ]
+  },
+  "temperature": {
+    "thermal-zone": 0,
+    "critical-threshold": 80,
+    "format-critical": " {temperatureC}°C",
+    "format": " {temperatureC}°C"
+  },
+  "disk": {
+    "interval": 1,
+    "path": "/home",
+    "format": " {percentage_used}%",
+    "on-click": "filelight /",
+    "on-click-right": "filelight /home/"
+  }
+}

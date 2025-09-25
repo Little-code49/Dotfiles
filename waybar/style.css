@@ -1,0 +1,545 @@
+@import "../themes/theme.css";
+* {
+  all: unset;
+  padding: 0;
+  margin: 0;
+  font-family: Jetbrains Mono Nerd Font;
+  font-weight: bold;
+  font-size: 16px;
+  color: @text;
+  background: transparent;
+  text-shadow: none;
+}
+
+.modules-right {
+  background: transparent;
+  border-radius: 5px;
+}
+
+.modules-left > * {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    outline: none;
+}
+
+
+window#waybar {
+  border-radius: 10px;
+  background-color: alpha(@bg_dark, 0.6);
+}
+
+.modules-left > *:nth-child(5) > *,
+.modules-left > *:nth-child(3) > * {
+  color: @color8;
+}
+.modules-left > *:nth-child(6) > *,
+.modules-left > *:nth-child(8) > * {
+  color: @color4;
+}
+.modules-left > *:nth-child(9) > *,
+.modules-left > *:nth-child(11) > * {
+  color: @color7;
+}
+.modules-left > *:nth-child(12) > *,
+.modules-left > *:nth-child(14) > * {
+  color: @color11;
+}
+.modules-left > *:nth-child(15) > *,
+.modules-left > *:nth-child(17) > * {
+  color: @color3;
+}
+.modules-left > *:nth-child(18) > *,
+.modules-left > *:nth-child(20) > * {
+  color: @color10;
+  background: transparent;
+}
+.modules-left > *:nth-child(2) > * {
+  color: @color0;
+}
+
+.modules-right > *:nth-child(1) > *,
+.modules-right > *:nth-child(3) > * {
+  color: @color12;
+}
+.modules-right > *:nth-child(4) > *,
+.modules-right > *:nth-child(6) > * {
+  color: @color1;
+}
+.modules-right > *:nth-child(16) > *,
+.modules-right > *:nth-child(18) > *{
+  color: @color10;
+}
+.modules-right > *:nth-child(19) > * {
+  color: @color7;
+}
+.modules-right > *:nth-child(13) > *,
+.modules-right > *:nth-child(15) > * {
+  color: @color14;
+}
+.modules-right > *:nth-child(10) > *,
+.modules-right > *:nth-child(12) > * {
+  color: @color11;
+}
+.modules-right > *:nth-child(7) > *,
+.modules-right > *:nth-child(9) > * {
+  color: @color8;
+}
+
+
+
+
+#custom-launcher{
+  font-size: 16px;
+  color: #00bfff;
+  padding-right: 5px;
+  min-height: 20px;
+  margin: 5px 0px 4px 5px;
+  border-radius: 5px 0px 0px 5px;
+  background-color: @color0;
+}
+
+#group-power{
+  min-height: 20px;
+}
+
+
+#custom-shutdown,
+#custom-reboot,
+#custom-sleep,
+#custom-logout,
+#custom-lock,
+#custom-quick,
+#custom-quick1,
+#custom-quick2,
+#custom-quick3,
+#custom-pacman,
+#custom-pkgicon{
+  font-size: 16px;
+}
+
+#custom-pkgicon,
+#custom-package{
+  background-color: @color12;
+  margin: 5px 0px 4px -1px;
+}
+#custom-shutdown,
+#custom-reboot,
+#custom-sleep,
+#custom-logout,
+#custom-lock{
+  background-color: @color0;
+  margin: 7px 0px 7px 0px;
+}
+#custom-quick {
+  color: #fab387;
+}
+
+#custom-uptime {
+  background-color: @color10;
+  margin: 5px 0px 4px -1px;
+}
+
+#custom-shutdown {
+  color: @color5;
+}
+
+#custom-reboot {
+  color: @color14;
+}
+
+#custom-lock {
+  color: @color9;
+}
+
+#custom-sleep {
+  color: @color10;
+}
+
+
+#custom-logout {
+  color: @color3;
+}
+
+
+#pulseaudio-slider {
+  background-color: #91d7e3;
+  padding-right: 10px;
+  margin: 5px 0px 4px 0px;
+}
+
+#pulseaudio-slider slider {
+    min-width: 0px;
+    min-height: 0px;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+#pulseaudio-slider trough {
+    min-height: 8px;
+    min-width: 80px;
+    border-radius: 5px;
+    background-color: #45475a;
+}
+#pulseaudio-slider highlight {
+    min-width: 10px;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+
+
+#backlight-slider {
+  background-color: #eed49f;
+  margin: 5px 0px 4px 0px;
+  padding-right: 10px;
+}
+
+#backlight-slider slider {
+    min-width: 0px;
+    min-height: 0px;
+    border: none;
+    box-shadow: none;
+}
+#backlight-slider trough {
+    min-height: 8px;
+    min-width: 80px;
+    border-radius: 5px;
+    background-color: #45475a;
+}
+#backlight-slider highlight {
+    min-width: 10px;
+    border-radius: 5px;
+    background-color: #a6e3a1;
+}
+
+#custom-playerctl {
+  background-color: @color11;
+  margin: 5px 0px 4px -1px;
+}
+
+#custom-playerctl toolip-format {
+  background-color: #ffffff;
+}
+
+#custom-previous,
+#custom-play,
+#custom-next {
+  background-color: @color11;
+  margin: 5px 0px 4px -1px;
+}
+
+#custom-next { 
+  padding-left: 5px;
+}
+/* #cpu, */
+/* #memory */
+/* #temperature{ */
+/*   font-size: 15px; */
+/*   margin-top: 5px; */
+/*   margin-bottom: 5px; */
+/*    */
+/* } */
+/**/
+/* #cpu { */
+/*   color: #eed49f; */
+/*   padding: 0px 10px 0px 12px; */
+/*   border-radius: 5px 0px 0px 5px; */
+/* } */
+/**/
+/* #memory { */
+/*   color: #a6da95; */
+/*   padding: 0px 10px 0px 0px; */
+/* } */
+/**/
+/* #temperature { */
+/*   color: #8aadf4; */
+/*   padding: 0px 12px 0px 0px; */
+/*   border-radius: 0px 5px 5px 0px; */
+/* } */
+
+#custom-weather {
+  margin: 5px 0px 4px -1px;
+  min-height: 20px;
+  padding-right: 0px;
+  background-color: @color1;
+}
+
+
+#cpu {
+  background-color: @color8;
+  margin: 5px 0px 4px -1px;
+}
+
+#memory {
+  background-color: @color4;
+  margin: 5px 0px 4px -1px;
+}
+
+#temperature {
+  background-color: @color7;
+  margin: 5px 0px 4px -1px;
+}
+
+#custom-window-name {
+  color: #68b0d6;
+  margin-right: 10px;
+  
+}
+
+#custom-pacman-update-icon {
+  background-color: #68b0d6;
+  color: #181926;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+#custom-pacman-update {
+  color: #8bd5ca;
+  margin: 5px 10px 5px 0px;
+}
+
+#workspaces {
+  padding: 0px;
+  margin: 0;
+}
+
+#workspaces button label {
+    transition: all 0.5s ease-in-out;
+    margin: 0px;
+    min-width: 15px;
+    
+}
+
+#workspaces button.active label {
+    min-width: 40px;
+}
+
+
+#workspaces button {
+  margin: 0px;
+  padding: 0px;
+  min-width: 0px;
+}
+
+#workspaces button:hover {
+  border: none;
+  all: unset;
+}
+
+#workspaces button:nth-child(1) label {
+  color: @color5;
+  font-size: 20px;
+  margin-right: -4px;
+  background: transparent;
+}
+
+#workspaces button:nth-child(2) label {
+  background-color: @color5;
+  margin: 5px 0px 4px 0px; 
+}
+
+#workspaces button:nth-child(3) label {
+  color: @color5; 
+  font-size: 20px;
+  margin-left: -4px;
+  background: transparent;
+}
+
+#workspaces button:nth-child(4) label {
+  color: @color7; 
+  font-size: 20px;
+  margin-right: -4px;
+  
+  
+}
+
+#workspaces button:nth-child(5) label {
+  background-color: @color7;
+  margin: 5px 0px 4px 0px; 
+  
+  
+}
+
+#workspaces button:nth-child(6) label {
+  color: @color7; 
+  font-size: 20px;
+  margin-left: -4px;
+  background: transparent;
+  
+  
+}
+
+#workspaces button:nth-child(7) label {
+  color: @color8; 
+  font-size: 20px;
+  margin-right: -4px;
+  
+  
+}
+
+#workspaces button:nth-child(8) label {
+  background-color: @color8;
+  margin: 5px 0px 4px 0px; 
+  
+  
+}
+
+#workspaces button:nth-child(9) label {
+  color: @color8; 
+  font-size: 20px;
+  margin-left: -4px;
+  background: transparent;
+  
+  
+}
+
+#workspaces button:nth-child(10) label {
+  color: @color10; 
+  font-size: 20px;
+  margin-right: -4px;
+  
+}
+
+#workspaces button:nth-child(11) label {
+  background-color: @color10;
+  margin: 5px 0px 4px 0px;   
+}
+
+#workspaces button:nth-child(12) label {
+  color: @color10; 
+  margin-left: -4px;
+  font-size: 20px;
+  background: transparent;
+  
+  
+}
+
+#workspaces button:nth-child(13) label {
+  color: @color14; 
+  font-size: 20px;
+  margin-right: -4px;
+  
+  
+}
+
+#workspaces button:nth-child(14) label {
+  background-color: @color14;
+  margin: 5px 0px 4px 0px;   
+  min-height: 23px;
+  
+  
+}
+
+#workspaces button:nth-child(15) label {
+  color: @color14; 
+  margin-left: -4px;
+  font-size: 20px;
+  background: transparent;
+  
+}
+
+
+#battery {
+  color: #a6da95;
+  margin: 5px 0px 4px -1px;
+}
+
+
+
+
+
+#backlight {
+  border: none;
+  background-color: @color8;
+  margin: 5px 0px 4px -1px;
+}
+
+#group-backlight {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: @color8;
+  box-shadow: none;
+  min-height: 0;
+  outline: none;
+}
+
+#pulseaudio {
+  background-color: @color11;
+  margin: 5px 0px 4px -1px;
+}
+
+
+#custom-right-arr {
+  color: #8aadf4;
+  
+}
+
+#custom-pacman {
+  color: #68b0d6;
+  
+}
+
+#network {
+  background-color: @color14;
+  margin: 5px 0px 4px -1px;
+}
+
+#custom-dot {
+  color: #6e738d;
+  padding-right: 10px;
+  
+}
+
+#custom-dot-alt {
+  color: #a5adcb;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#cava {
+  color: #f5e0dc;
+}
+
+#custom-fillerright,
+#custom-fillerleft{
+  font-size: 20px;
+  margin: 0px;
+  background: transparent;
+}
+
+#disk {
+  background-color: @color3;
+  margin: 5px 0px 4px -1px;
+}
+
+#custom-clock-icon {
+  color: #cad3f5;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+
+#custom-clock {
+  margin: 5px 0px 4px -1px;
+  min-height: 19px;
+  background-color: @color7;
+  border-radius: 0px 5px 5px 0px;
+  margin-right: 5px;
+}
+
+#custom-date {
+  margin: 5px 0px 4px -1px;
+  min-height: 19px;
+  background-color: @color10;
+}
+
+/*# sourceMappingURL=style.css.map */
+
