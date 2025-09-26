@@ -4,7 +4,7 @@ My personal hyprland rice!
 *" If it works, don't touch it"*
 
 # Showcase ✨
-https://github.com/Little-code49/Dotfiles/raw/refs/heads/main/Screenshots/video-1.mp4
+https://github.com/user-attachments/assets/e9eeb20f-3c60-48c1-874c-dab3d45bf25a
 
 # Notes
 For anyone who uses this configuration, expect some bugs.
