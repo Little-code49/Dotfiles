@@ -14,6 +14,6 @@ https://github.com/user-attachments/assets/e9eeb20f-3c60-48c1-874c-dab3d45bf25a
 # Notes
 For anyone who uses this configuration, expect some bugs.
 
-This rice is modified and changed from other peoples configs eg. Catppuccin
+Some parts of the rice is modified and changed from other peoples configs eg. Catppuccin
 
 
